@@ -18,7 +18,10 @@ const Modal = ({ isOpen, children }) => {
     if (!isOpen) return null;
 
     return <ClientOnlyPortal selector="#__next">
-        {children}
+        <div className="modal">
+            <div style={OVERLAY_STYLES}></div>
+            {children}
+        </div>
     </ClientOnlyPortal>
     // return ReactDOM.createPortal(
     //     <div className="modal">

@@ -19,7 +19,6 @@ const GoalsBanner = ({ meals }) => {
         return [carbCal, proteinCal, fatCal].reduce((a, b) => a + b, 0);
     };
 
-
     const getTotalCalories = meals =>
         meals
             .map(m => sumMealFoodCalories(m.foods))

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from "react";
-import { NutritionContext } from "../index.js";
+import { NutritionContext } from "../_app.js";
 
 const AddMeal = ({ closeTrigger, onClose, sumFoodCalories }) => {
     const { allFoods, setMeals, createMeal, meals } = useContext(NutritionContext);
@@ -10,7 +10,7 @@ const AddMeal = ({ closeTrigger, onClose, sumFoodCalories }) => {
     const saveAndClose = () => {
         addMeal();
         onClose();
-    }; 
+    };
     const handleNameChange = e => setName(e.target.value);
     const addFoodToMeal = food => setMeal({ ...meal, foods: [...meal.foods, food] });
     const addMeal = async () => setMeals([...meals, await (await createMeal({ ...meal, name: name })).data]);
