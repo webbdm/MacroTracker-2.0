@@ -1,0 +1,45 @@
+import React, { useContext } from "react"
+import { NutritionContext } from "../_app.js";
+import GoalsBanner from "../GoalsBanner.js";
+
+const Goals = () => {
+    const { meals, goal, split } = useContext(NutritionContext);
+
+    const calculateMacroTarget = macro => {
+        const factors = {
+            protein: 4,
+            fat: 9,
+            carbohydrates: 4
+        };
+        return Math.round((goal * (split[macro] / 100)) / factors[macro]);
+
+    };
+
+    const capitalizeFirstLetter = (str) => {
+        return str[0].toUpperCase() + str.slice(1);
+    }
+
+    return <React.Fragment>
+        <GoalsBanner meals={meals} />
+        <div className="w-full flex flex-row justify-between flex-wrap p-4 lg:flex-nowrap text-white">
+            <div className="w-full lg:w-1/2 flex flex-col text-center m-2">
+                <div className="text-3xl">{goal}</div>
+                <div className="text-3xl bg-panel p-2 rounded-md">Calorie Goal</div>
+            </div>
+            <div className="w-full lg:w-1/2 flex flex-col">
+                {Object.keys(split).map(m =>
+                (
+                    <div key={m} className="m-2 flex flex-row justify-between bg-panel p-2 rounded-md">
+                        <div className="flex flex-row mr-4 items-center">
+                            <span className="text-lg">{capitalizeFirstLetter(m)}</span>
+                            <span className="ml-2 text-sm">({Math.round(split[m])}%)</span>
+                        </div>
+                        <span>{calculateMacroTarget(m)}g</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </React.Fragment>
+};
+
+export default Goals;

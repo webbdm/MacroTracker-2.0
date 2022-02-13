@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import ClientOnlyPortal from "./ClientOnlyPortal";
 
 
@@ -23,12 +22,6 @@ const Modal = ({ isOpen, children }) => {
             {children}
         </div>
     </ClientOnlyPortal>
-    // return ReactDOM.createPortal(
-    //     <div className="modal">
-    //         <div style={OVERLAY_STYLES}></div>
-    //         {children}
-    //     </div>
-    //     , document.getElementById("modal-root"));
 }
 
 export default Modal;

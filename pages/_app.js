@@ -10,9 +10,20 @@ function MyApp({ Component, pageProps, props }) {
   const [meals, setMeals] = useState(pageProps.meals);
   const [allFoods, setAllFoods] = useState(pageProps.allFoods);
 
+  const [goal, setGoal] = useState(2000);
+  const [split, setSplit] = useState({
+    protein: 40.00,
+    fat: 20.00,
+    carbohydrates: 40.00
+  });
+
   return (<NutritionContext.Provider value={{
     allFoods,
     meals,
+    goal,
+    split,
+    setSplit,
+    setGoal,
     setMeals,
     setAllFoods,
     addFoodToMeal: lifeApi.addFoodToMeal,
