@@ -1,9 +1,12 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { NutritionContext } from "../_app.js";
 import GoalsBanner from "../GoalsBanner.js";
+import { lifeApi } from "../../providers/api.js";
 
 const Goals = () => {
-    const { meals, goal, split } = useContext(NutritionContext);
+    const { meals, goal, split, setGoal } = useContext(NutritionContext);
+    const [editingGoal, setEditingGoal] = useState(false);
+    const [goalValue, setGoalvalue] = useState(goal);
 
     const calculateMacroTarget = macro => {
         const factors = {
@@ -15,6 +18,22 @@ const Goals = () => {
 
     };
 
+    const handleNameChange = e => setGoalvalue(e.target.value);
+
+    const handleEdit = () => {
+        if(editingGoal){
+            updateGoal();
+            setEditingGoal(false);
+        }else{
+            setEditingGoal(true);
+        }
+
+    }
+
+    const updateGoal = async () => {
+        //const res = await lifeApi.updateGoal();
+        setGoal(goalValue);
+    };
     const capitalizeFirstLetter = (str) => {
         return str[0].toUpperCase() + str.slice(1);
     }
@@ -23,7 +42,15 @@ const Goals = () => {
         <GoalsBanner meals={meals} />
         <div className="w-full flex flex-row justify-between flex-wrap p-4 lg:flex-nowrap text-white">
             <div className="w-full lg:w-1/2 flex flex-col text-center m-2">
-                <div className="text-3xl">{goal}</div>
+                <div className="flex flex-row justify-between items-center">
+                {editingGoal ?
+                    <input className="text-3xl justify-self-center bg-primary font-bold text-white "
+                        value={goalValue}
+                        onChange={handleNameChange}
+                        placeholder="Name" ></input>
+                    : <div className="justify-self-center text-3xl">{goal}</div>}
+                    <span className="justify-self-end" onClick={()=>handleEdit(!editingGoal)}>{editingGoal ? "Save": "Edit"}</span>
+                    </div>
                 <div className="text-3xl bg-panel p-2 rounded-md">Calorie Goal</div>
             </div>
             <div className="w-full lg:w-1/2 flex flex-col">
