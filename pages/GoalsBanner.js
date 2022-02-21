@@ -10,6 +10,7 @@ const GoalsBanner = ({ meals }) => {
         let carbCal = 0;
         let fatCal = 0;
         let proteinCal = 0;
+
         foods.map(f => {
             // all per (1) gram
             carbCal += f.carbohydrate * 4;

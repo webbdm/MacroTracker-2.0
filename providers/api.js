@@ -49,5 +49,7 @@ export const lifeApi = {
     await axios.post(`${API_BASE_URL}/meal/addFood`, body),
   deleteFoodFromMeal: async mealFoodID =>
     await axios.delete(`${API_BASE_URL}/meal/deleteFood/${mealFoodID}`),
+  getGoal: async goalID => 
+    await axios.get(`${API_BASE_URL}/goal/${goalID}`),
   updateGoal: async goal => axios.put(`${API_BASE_URL}/goal`, goal)
 };

@@ -31,7 +31,11 @@ const Goals = () => {
     }
 
     const updateGoal = async () => {
-        //const res = await lifeApi.updateGoal();
+        const res = await lifeApi.updateGoal({
+            id: 1,
+            userID: 1,
+            calories: parseInt(goalValue)
+        });
         setGoal(goalValue);
     };
     const capitalizeFirstLetter = (str) => {

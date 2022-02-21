@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps, props }) {
   const [meals, setMeals] = useState(pageProps.meals);
   const [allFoods, setAllFoods] = useState(pageProps.allFoods);
 
-  const [goal, setGoal] = useState(2000);
+  const [goal, setGoal] = useState(pageProps.goal);
   const [split, setSplit] = useState({
     protein: 40.00,
     fat: 20.00,
@@ -71,14 +71,16 @@ MyApp.getInitialProps = async (appContext) => {
     }))
   })));
 
+  const goal = await lifeApi.getGoal(1);
   const meals = await lifeApi.getMeals();
   const foods = await lifeApi.getAllFoods();
 
   const mealData = meals.data;
   const foodData = foods.data;
+  const goalData = goal.data.calories;
 
   return {
-    pageProps: { meals: mappedMeals(mealData), allFoods: foodData }
+    pageProps: { meals: mappedMeals(mealData), allFoods: foodData, goal: goalData }
   }
 }
 
