@@ -25,3 +25,25 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.showable-target {
+  display: none;
+}
+.showable:hover .showable-target {
+  display: block;
+}
+
+.logo-font {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 6rem;
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
+}
+
+.macro-item {
+  min-width: 60%;
+}

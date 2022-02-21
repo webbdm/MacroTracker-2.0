@@ -10,6 +10,7 @@ const GoalsBanner = ({ meals }) => {
         let carbCal = 0;
         let fatCal = 0;
         let proteinCal = 0;
+
         foods.map(f => {
             // all per (1) gram
             carbCal += f.carbohydrate * 4;
@@ -18,7 +19,6 @@ const GoalsBanner = ({ meals }) => {
         })
         return [carbCal, proteinCal, fatCal].reduce((a, b) => a + b, 0);
     };
-
 
     const getTotalCalories = meals =>
         meals
