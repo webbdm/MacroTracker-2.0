@@ -77,7 +77,7 @@ MyApp.getInitialProps = async (appContext) => {
 
   const mealData = meals.data;
   const foodData = foods.data;
-  const goalData = goal.data.calories;
+  const goalData = goal.data;
 
   return {
     pageProps: { meals: mappedMeals(mealData), allFoods: foodData, goal: goalData }
