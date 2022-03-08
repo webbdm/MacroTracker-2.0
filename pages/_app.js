@@ -11,11 +11,7 @@ function MyApp({ Component, pageProps, props }) {
   const [allFoods, setAllFoods] = useState(pageProps.allFoods);
 
   const [goal, setGoal] = useState(pageProps.goal);
-  const [split, setSplit] = useState({
-    protein: 40.00,
-    fat: 20.00,
-    carbohydrates: 40.00
-  });
+  const [split, setSplit] = useState(goal.split);
 
   return (<NutritionContext.Provider value={{
     allFoods,

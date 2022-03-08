@@ -4,11 +4,22 @@ import GoalsBanner from "../GoalsBanner.js";
 import { lifeApi } from "../../providers/api.js";
 
 const Goals = () => {
-    const { meals, goal, split, setGoal } = useContext(NutritionContext);
+    const { meals, goal, split, setGoal, setSplit } = useContext(NutritionContext);
     const [editingGoal, setEditingGoal] = useState(false);
     const [goalValue, setGoalvalue] = useState(goal.calories);
 
+    const [proteinSplit, setProteinSplit] = useState(goal.split.proteinSplit);
+    const [fatSplit, setFatSplit] = useState(goal.split.fatSplit);
+    const [carbohydrateSplit, setCarbohydrateSplit] = useState(goal.split.carbohydrateSplit);
+
     const handleNameChange = e => setGoalvalue(e.target.value);
+
+    // Build your rows declaratively to provide mapped functions / setters
+    const rows = [
+        { name: "protein", setter: setProteinSplit, value: proteinSplit },
+        { name: "fat", setter: setFatSplit, value: fatSplit },
+        { name: "carbohydrates", setter: setCarbohydrateSplit, value: carbohydrateSplit }
+    ]
 
     const handleEdit = () => {
         if (editingGoal) {
@@ -17,7 +28,6 @@ const Goals = () => {
         } else {
             setEditingGoal(true);
         }
-
     }
 
     const updateGoal = async () => {
@@ -55,14 +65,19 @@ const Goals = () => {
                 <div className="text-3xl bg-panel p-2 rounded-md">Calorie Goal</div>
             </div>
             <div className="w-full lg:w-1/2 flex flex-col">
-                {Object.keys(goal).filter(f => ["protein", "fat", "carbohydrates"].includes(f)).map(m =>
+                {rows.map(macro =>
                 (
-                    <div key={m} className="m-2 flex flex-row justify-between bg-panel p-2 rounded-md">
+                    <div key={macro.name} className="m-2 flex flex-row justify-between bg-panel p-2 rounded-md">
                         <div className="flex flex-row mr-4 items-center">
-                            <span className="text-lg">{capitalizeFirstLetter(m)}</span>
-                            <span className="ml-2 text-sm">({Math.round(split[m])}%)</span>
+                            <span className="text-lg">{capitalizeFirstLetter(macro.name)}</span>
+                            {editingGoal ? <input className="text-3xl justify-self-center bg-primary font-bold text-white "
+                                value={macro.value}
+                                onChange={e => macro.setter(e.target.value)}
+                                placeholder="Name" ></input> : <span className="ml-2 text-sm">({
+                                    Math.round(macro.value)
+                                }%)</span>}
                         </div>
-                        <span>{goal[m]}g</span>
+                        <span>{goal[macro.name]}g</span>
                     </div>
                 ))}
             </div>
