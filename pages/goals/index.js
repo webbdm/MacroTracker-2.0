@@ -38,13 +38,15 @@ const Goals = () => {
             split: {
                 id: split.id,
                 goalID: goal.id,
-                proteinSplit: split.protein,
-                fatSplit: split.fat,
-                carbohydrateSplit: split.carbohydrates
+                proteinSplit: parseFloat(proteinSplit),
+                fatSplit: parseFloat(fatSplit),
+                carbohydrateSplit: parseFloat(carbohydrateSplit)
             }
         });
+
         setGoal(res.data);
     };
+
     const capitalizeFirstLetter = (str) => {
         return str[0].toUpperCase() + str.slice(1);
     }
@@ -70,7 +72,7 @@ const Goals = () => {
                     <div key={macro.name} className="m-2 flex flex-row justify-between bg-panel p-2 rounded-md">
                         <div className="flex flex-row mr-4 items-center">
                             <span className="text-lg">{capitalizeFirstLetter(macro.name)}</span>
-                            {editingGoal ? <input className="text-3xl justify-self-center bg-primary font-bold text-white "
+                            {editingGoal ? <input className="text-2xl p-3 justify-self-center mx-2 rounded rounded-md bg-primary font-bold text-white "
                                 value={macro.value}
                                 onChange={e => macro.setter(e.target.value)}
                                 placeholder="Name" ></input> : <span className="ml-2 text-sm">({
