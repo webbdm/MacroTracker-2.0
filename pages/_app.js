@@ -11,11 +11,7 @@ function MyApp({ Component, pageProps, props }) {
   const [allFoods, setAllFoods] = useState(pageProps.allFoods);
 
   const [goal, setGoal] = useState(pageProps.goal);
-  const [split, setSplit] = useState({
-    protein: 40.00,
-    fat: 20.00,
-    carbohydrates: 40.00
-  });
+  const [split, setSplit] = useState(goal.split);
 
   return (<NutritionContext.Provider value={{
     allFoods,
@@ -77,7 +73,7 @@ MyApp.getInitialProps = async (appContext) => {
 
   const mealData = meals.data;
   const foodData = foods.data;
-  const goalData = goal.data.calories;
+  const goalData = goal.data;
 
   return {
     pageProps: { meals: mappedMeals(mealData), allFoods: foodData, goal: goalData }
