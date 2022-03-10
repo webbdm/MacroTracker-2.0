@@ -1,11 +1,6 @@
 import React from "react";
 
-const GoalsBanner = ({ meals }) => {
-    const macros = [
-        { goal_macro_id: 1, macro_id: "Protein", target_amount: 200, remaining_amount: 50 },
-        { goal_macro_id: 2, macro_id: "Fat", target_amount: 200, remaining_amount: 50 },
-        { goal_macro_id: 3, macro_id: "Carbohydrates", target_amount: 200, remaining_amount: 50 }
-    ];
+const GoalsBanner = ({ meals, goal }) => {
     const sumMealFoodCalories = foods => {
         let carbCal = 0;
         let fatCal = 0;
@@ -52,6 +47,7 @@ const GoalsBanner = ({ meals }) => {
             fatGrams += m.fatGrams;
         });
         return {
+            // Object Key number values relate to a goal_macro_id
             1: { cal: proteinCal, grams: proteinGrams },
             2: { cal: fatCal, grams: fatGrams },
             3: { cal: carbCal, grams: carbGrams },
@@ -59,10 +55,26 @@ const GoalsBanner = ({ meals }) => {
         };
     };
 
+    const getRemainingAmount = (goal, goalMacro, id) => {
+       // if(!goal) return 0.01
+        return goal[goalMacro] - getMacroGroupings(meals)[id].grams;
+    };
+
+    const macros = [
+        { goal_macro_id: 1, macro_id: "Protein", target_amount: 200, remaining_amount: getRemainingAmount(goal, "protein", 1) },
+        { goal_macro_id: 2, macro_id: "Fat", target_amount: 200, remaining_amount: getRemainingAmount(goal, "fat", 2) },
+        { goal_macro_id: 3, macro_id: "Carbohydrates", target_amount: 200, remaining_amount: getRemainingAmount(goal, "carbohydrates", 3) }
+    ];
+
+
     return <div className="flex flex-row flex-nowrap justify-between bg-panel border-b-4 border-accent py-10 pr-2">
+        
         <div className="flex-1 text-white text-center py-2 px-2 flex flex-col justify-center rounded-r-lg bg-background mr-3">
             <h1 className="text-5xl lg:text-6xl">{getTotalCalories(meals)}</h1>
             <h1 className="text-lg lg:text-3xl">Calories</h1>
+            <div>
+            Target: {goal.calories}
+        </div>
         </div>
 
         <div className="flex flex-col flex-wrap flex-1 justify-between">

@@ -18,7 +18,7 @@ const Meals = () => {
     const [isAddingFood, setIsAddingFood] = useState(false);
     const [isAddingMeal, setIsAddingMeal] = useState(false);
     const [meal, setMeal] = useState(null);
-    const { allFoods, addFoodToMeal, deleteFoodFromMeal, meals, setMeals, deleteMeal } = useContext(NutritionContext);
+    const { allFoods, addFoodToMeal, deleteFoodFromMeal, meals, setMeals, deleteMeal, goal } = useContext(NutritionContext);
 
     const openAddingFoodModal = meal => {
         setIsAddingFood(true);
@@ -65,7 +65,7 @@ const Meals = () => {
     const sumFoodCalories = food => [food.carbohydrate * 4, food.protein * 4, food.fat * 9].reduce((a, b) => a + b, 0);
 
     return <React.Fragment>
-        <GoalsBanner meals={meals} />
+        <GoalsBanner meals={meals}goal={goal}/>
         <div className="flex flex-col py-2">
             <div className="flex flex-row justify-end">
                 <div className="bg-accent cursor-pointer rounded-lg p-3 mr-2 font-bold text-primary" onClick={() => openAddingMealModal()}>+ Add Meal</div>

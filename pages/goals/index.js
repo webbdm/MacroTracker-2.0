@@ -52,7 +52,7 @@ const Goals = () => {
     }
 
     return <React.Fragment>
-        <GoalsBanner meals={meals} />
+        <GoalsBanner meals={meals} goal={goal} />
         <div className="w-full flex flex-row justify-between flex-wrap p-4 lg:flex-nowrap text-white">
             <div className="w-full lg:w-1/2 flex flex-col text-center m-2">
                 <div className="flex flex-row justify-between items-center">

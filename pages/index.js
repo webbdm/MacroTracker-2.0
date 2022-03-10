@@ -44,7 +44,7 @@ const Nutrition = ({ meals, allFoods }) => {
 
     return (
         <React.Fragment>
-                <GoalsBanner meals={meals}></GoalsBanner>
+                <GoalsBanner meals={meals} goals={goals}></GoalsBanner>
                 <div>
                     {titles.map(title =>
                         <Link href={`/${title.path}`} key={title.title_name}><div style={{ height: '200px' }} className="cursor-pointer relative shadow-2xl flex-grow flex flex-row text-white rounded-lg md:m-6 m-3 bg-panel">
